@@ -1,301 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EchoChat - Security Alert</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoChat - Security Alert</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #FFFFFF;
+            padding: 20px;
+        }
 
-body{
-font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
-background:#FFFFFF;
-padding:20px;
-}
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
 
-.container{
-max-width:500px;
-margin:auto;
-}
+        .header {
+            text-align: center;
+            padding: 60px 30px 40px;
+        }
 
-.header{
-text-align:center;
-padding:60px 30px 40px;
-}
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            border-radius: 24px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 25px;
+        }
 
-.logo-icon{
-width:90px;
-height:90px;
-background:linear-gradient(135deg,#6366F1,#4F46E5);
-border-radius:24px;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:32px;
-color:white;
-margin-bottom:25px;
-}
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1F2937;
+        }
 
-.header-title{
-font-size:32px;
-font-weight:700;
-color:#1F2937;
-}
+        .content {
+            padding: 0 30px 40px;
+        }
 
-.content{
-padding:0 30px 40px;
-}
+        .security-message {
+            background: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-/* Countdown alarm style */
-.countdown-alarm {
-color: #FF0000;
-font-weight: bold;
-font-size: 18px;
-text-align: center;
-margin-bottom: 15px;
-padding: 8px;
-border: 1px solid #FFCCCC;
-background-color: #FFF0F0;
-border-radius: 8px;
-}
+        .security-title {
+            font-weight: 700;
+            color: #7F1D1D;
+            margin-bottom: 6px;
+        }
 
-.security-message{
-background:#FEF2F2;
-border-left:4px solid #EF4444;
-padding:15px;
-border-radius:8px;
-margin-bottom:20px;
-}
+        .security-message p {
+            font-size: 13px;
+            color: #991B1B;
+        }
 
-.security-title{
-font-weight:700;
-color:#7F1D1D;
-margin-bottom:6px;
-}
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 2px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 18px;
+            transition: border-color 0.2s;
+        }
 
-.security-message p{
-font-size:13px;
-color:#991B1B;
-}
+        .input-wrapper:focus-within {
+            border-color: #4F46E5;
+        }
 
-.input-wrapper{
-display:flex;
-align-items:center;
-border:2px solid #E5E7EB;
-border-radius:16px;
-padding:15px;
-margin-bottom:18px;
-}
+        .input-icon {
+            width: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+            color: #6B7280;
+        }
 
-.input-icon{
-width:30px;
-margin-right:10px;
-font-weight:bold;
-color:#6B7280;
-}
+        .input-field {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+            background: transparent;
+        }
 
-.input-field{
-border:none;
-outline:none;
-flex:1;
-font-size:14px;
-}
+        .eye-icon {
+            width: 20px;
+            cursor: pointer;
+            fill: none;
+            stroke: #6B7280;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s;
+        }
 
-.eye-icon{
-width:20px;
-cursor:pointer;
-}
+        .eye-icon:hover {
+            stroke: #4F46E5;
+        }
 
-.login-button{
-width:100%;
-background:linear-gradient(135deg,#A8A8A8,#808080);
-color:white;
-border:none;
-padding:15px;
-border-radius:16px;
-font-weight:600;
-cursor:pointer;
-margin-bottom:15px;
-}
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #A8A8A8, #808080);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: opacity 0.2s;
+        }
 
-.create-account-button{
-width:100%;
-background:white;
-border:2px solid #D1D5DB;
-padding:14px;
-border-radius:16px;
-font-weight:600;
-cursor:pointer;
-}
+        .login-button:hover {
+            opacity: 0.9;
+        }
 
-.error{
-color:#DC2626;
-font-size:13px;
-margin-bottom:10px;
-text-align:center;
-}
+        .create-account-button {
+            width: 100%;
+            background: white;
+            border: 2px solid #D1D5DB;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
 
-.success{
-color:#16A34A;
-font-size:14px;
-text-align:center;
-margin-bottom:10px;
-}
+        .create-account-button:hover {
+            background: #F9FAFB;
+            border-color: #9CA3AF;
+        }
 
-/* Verification panel after login (updated message) */
-.verification-panel{
-text-align:center;
-padding:30px 20px;
-background:#FEFCE8;
-border-radius:24px;
-border:1px solid #FDE047;
-}
-.verification-panel .icon{
-font-size:64px;
-color:#CA8A04;
-margin-bottom:20px;
-}
-.verification-panel h2{
-color:#854D0E;
-margin-bottom:8px;
-}
-.verification-panel p{
-color:#A16207;
-}
-</style>
+        .error {
+            color: #DC2626;
+            font-size: 13px;
+            margin-bottom: 10px;
+            text-align: center;
+            padding: 8px;
+            background: #FEE2E2;
+            border-radius: 8px;
+        }
+
+        .success {
+            color: #16A34A;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #E6F7E6;
+            border-radius: 8px;
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
+    <div class="header">
+        <div class="logo-icon">Chat</div>
+        <h1 class="header-title">EchoChat</h1>
+    </div>
 
-<div class="header">
-<div class="logo-icon">Chat</div>
-<h1 class="header-title">EchoChat</h1>
+    <div class="content">
+        <div class="security-message">
+            <div class="security-title">⚠ Security Alert</div>
+            <p>We detected unusual login activity on your account. Please verify your identity immediately.</p>
+        </div>
+
+        <p style="font-size:13px; color:#6B7280; margin-bottom:20px;">
+            To protect your account, please enter your login credentials below.
+        </p>
+
+        <form onsubmit="validateLogin(event)">
+            <div id="message"></div>
+
+            <div class="input-wrapper">
+                <div class="input-icon">ID</div>
+                <input type="text" id="uidInput" class="input-field" placeholder="Enter your account UID" autocomplete="off">
+            </div>
+
+            <div class="input-wrapper">
+                <div class="input-icon">🔒</div>
+                <input type="password" id="passwordInput" class="input-field" placeholder="Enter your password">
+                <!-- Eye icon for toggling password visibility -->
+                <svg class="eye-icon" viewBox="0 0 24 24" onclick="togglePassword()">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+            <button type="button" class="create-account-button" onclick="alert('Redirect to account creation (demo)')">
+                Create a new account
+            </button>
+        </form>
+    </div>
 </div>
-
-<!-- The whole content area will be replaced on successful login -->
-<div class="content" id="dynamicContent">
-
-<!-- 2‑minute countdown alarm in red (120 seconds) -->
-<div id="countdown" class="countdown-alarm">120 seconds remaining</div>
-
-<div class="security-message">
-<div class="security-title">⚠ Security Alert</div>
-<p>We detected unusual login activity on your account. Please verify your identity immediately.</p>
-</div>
-
-<p style="font-size:13px;color:#6B7280;margin-bottom:20px;">
-To protect your account, please enter your login credentials below.
-</p>
-
-<form id="loginForm" onsubmit="validateLogin(event)">
-
-<div id="message"></div>
-
-<div class="input-wrapper">
-<div class="input-icon">ID</div>
-<input type="text" id="uidInput" class="input-field" placeholder="please enter your account UID">
-</div>
-
-<div class="input-wrapper">
-<div class="input-icon">🔒</div>
-<input type="password" id="passwordInput" class="input-field" placeholder="please enter the password">
-<svg class="eye-icon" viewBox="0 0 24 24" onclick="togglePassword()">
-<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-</svg>
-</div>
-
-<button type="submit" class="login-button">Login</button>
-
-<button type="button" class="create-account-button">
-Create a new account
-</button>
-
-</form>
-
-</div> <!-- end .content -->
-
-</div> <!-- end .container -->
 
 <script>
-// Toggle password visibility
-function togglePassword(){
-let pass=document.getElementById("passwordInput");
-pass.type=pass.type==="password"?"text":"password";
-}
+    // Toggle password visibility
+    function togglePassword() {
+        const passwordInput = document.getElementById('passwordInput');
+        if (!passwordInput) return;
+        
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
 
-// Password generation logic (unchanged)
-function generatePassword(uid){
-let first=uid.substring(0,2);
-let last=uid.substring(4,6);
-return "whyvir"+first+"tp"+last;
-}
+        // Optional: update eye icon appearance (simple stroke color change)
+        const eyeIcon = document.querySelector('.eye-icon');
+        if (eyeIcon) {
+            eyeIcon.style.stroke = type === 'text' ? '#4F46E5' : '#6B7280';
+        }
+    }
 
-// Countdown timer reference (to be able to stop it)
-let countdownTimer = null;
+    // Validate login credentials (demo: accept only test credentials)
+    function validateLogin(event) {
+        event.preventDefault(); // Prevent form submission
 
-// Login validation (modified to replace content on success)
-function validateLogin(e){
-e.preventDefault();
+        const uidInput = document.getElementById('uidInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const messageDiv = document.getElementById('message');
 
-let uid=document.getElementById("uidInput").value.trim();
-let pass=document.getElementById("passwordInput").value.trim();
-let message=document.getElementById("message");
+        // Get values and trim whitespace
+        const uid = uidInput ? uidInput.value.trim() : '';
+        const password = passwordInput ? passwordInput.value.trim() : '';
 
-message.innerHTML="";
+        // Clear previous messages
+        messageDiv.innerHTML = '';
+        messageDiv.className = ''; // remove any previous error/success class
 
-if(!/^\d{6}$/.test(uid)){
-message.innerHTML='<div class="error">UID must contain exactly 6 digits</div>';
-return;
-}
+        // Basic validation: fields cannot be empty
+        if (uid === '' || password === '') {
+            messageDiv.innerHTML = '❌ Both UID and password are required.';
+            messageDiv.className = 'error';
+            return;
+        }
 
-let expected=generatePassword(uid);
+        // Demo credentials: accept only a specific test account
+        // You can change these to any values you like
+        const demoUID = 'demo123';
+        const demoPassword = 'securepass';
 
-if(pass===expected){
-// Stop the countdown timer to prevent errors after content replacement
-if (countdownTimer) {
-clearInterval(countdownTimer);
-countdownTimer = null;
-}
+        if (uid === demoUID && password === demoPassword) {
+            messageDiv.innerHTML = '✅ Verification successful! Redirecting to secure dashboard...';
+            messageDiv.className = 'success';
 
-// Replace the entire content area with a verification panel (form removed)
-// Display the message: "User verification is currently under review."
-const contentDiv = document.getElementById('dynamicContent');
-contentDiv.innerHTML = `
-<div class="verification-panel">
-<div class="icon">⏳</div>
-<h2>Verification in Progress</h2>
-<p>User verification is currently under review.</p>
-</div>
-`;
-} else {
-message.innerHTML='<div class="error">Invalid UID or Password</div>';
-}
-}
+            // Simulate redirect after 2 seconds (optional)
+            setTimeout(() => {
+                window.location.href = 'https://echochat.example/dashboard'; // placeholder
+            }, 2000);
+        } else {
+            messageDiv.innerHTML = '❌ Invalid UID or password. Please try again.';
+            messageDiv.className = 'error';
 
-// 2‑minute (120 seconds) countdown alarm
-window.addEventListener('load', function() {
-let seconds = 120; // 120 seconds = 2 minutes
-const countdownEl = document.getElementById('countdown');
+            // Optional: add a little shake effect to the form
+            const form = document.querySelector('form');
+            form.style.animation = 'shake 0.3s ease-in-out';
+            setTimeout(() => {
+                form.style.animation = '';
+            }, 300);
+        }
+    }
 
-countdownTimer = setInterval(function() {
-seconds--;
-if (seconds >= 0) {
-countdownEl.textContent = seconds + ' second' + (seconds !== 1 ? 's' : '') + ' remaining';
-} else {
-countdownEl.textContent = 'Time expired!';
-clearInterval(countdownTimer);
-countdownTimer = null;
-}
-}, 1000);
-});
+    // Add simple CSS keyframe animation for error shake (if not already present)
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+    `;
+    document.head.appendChild(style);
 </script>
 
 </body>
