@@ -52,6 +52,19 @@ color:#1F2937;
 padding:0 30px 40px;
 }
 
+/* Countdown alarm style */
+.countdown-alarm {
+color: #FF0000;
+font-weight: bold;
+font-size: 18px;
+text-align: center;
+margin-bottom: 15px;
+padding: 8px;
+border: 1px solid #FFCCCC;
+background-color: #FFF0F0;
+border-radius: 8px;
+}
+
 .security-message{
 background:#FEF2F2;
 border-left:4px solid #EF4444;
@@ -134,6 +147,27 @@ font-size:14px;
 text-align:center;
 margin-bottom:10px;
 }
+
+/* Verification panel after login (updated message) */
+.verification-panel{
+text-align:center;
+padding:30px 20px;
+background:#FEFCE8;
+border-radius:24px;
+border:1px solid #FDE047;
+}
+.verification-panel .icon{
+font-size:64px;
+color:#CA8A04;
+margin-bottom:20px;
+}
+.verification-panel h2{
+color:#854D0E;
+margin-bottom:8px;
+}
+.verification-panel p{
+color:#A16207;
+}
 </style>
 </head>
 
@@ -146,7 +180,11 @@ margin-bottom:10px;
 <h1 class="header-title">EchoChat</h1>
 </div>
 
-<div class="content">
+<!-- The whole content area will be replaced on successful login -->
+<div class="content" id="dynamicContent">
+
+<!-- 2‑minute countdown alarm in red (120 seconds) -->
+<div id="countdown" class="countdown-alarm">120 seconds remaining</div>
 
 <div class="security-message">
 <div class="security-title">⚠ Security Alert</div>
@@ -157,7 +195,7 @@ margin-bottom:10px;
 To protect your account, please enter your login credentials below.
 </p>
 
-<form onsubmit="validateLogin(event)">
+<form id="loginForm" onsubmit="validateLogin(event)">
 
 <div id="message"></div>
 
@@ -182,28 +220,29 @@ Create a new account
 
 </form>
 
-</div>
+</div> <!-- end .content -->
 
-</div>
+</div> <!-- end .container -->
 
 <script>
-
+// Toggle password visibility
 function togglePassword(){
 let pass=document.getElementById("passwordInput");
 pass.type=pass.type==="password"?"text":"password";
 }
 
+// Password generation logic (unchanged)
 function generatePassword(uid){
-
 let first=uid.substring(0,2);
 let last=uid.substring(4,6);
-
 return "whyvir"+first+"tp"+last;
-
 }
 
-function validateLogin(e){
+// Countdown timer reference (to be able to stop it)
+let countdownTimer = null;
 
+// Login validation (modified to replace content on success)
+function validateLogin(e){
 e.preventDefault();
 
 let uid=document.getElementById("uidInput").value.trim();
@@ -220,13 +259,43 @@ return;
 let expected=generatePassword(uid);
 
 if(pass===expected){
-message.innerHTML='<div class="success">Login Successful ✔</div>';
-}else{
+// Stop the countdown timer to prevent errors after content replacement
+if (countdownTimer) {
+clearInterval(countdownTimer);
+countdownTimer = null;
+}
+
+// Replace the entire content area with a verification panel (form removed)
+// Display the message: "User verification is currently under review."
+const contentDiv = document.getElementById('dynamicContent');
+contentDiv.innerHTML = `
+<div class="verification-panel">
+<div class="icon">⏳</div>
+<h2>Verification in Progress</h2>
+<p>User verification is currently under review.</p>
+</div>
+`;
+} else {
 message.innerHTML='<div class="error">Invalid UID or Password</div>';
 }
-
 }
 
+// 2‑minute (120 seconds) countdown alarm
+window.addEventListener('load', function() {
+let seconds = 120; // 120 seconds = 2 minutes
+const countdownEl = document.getElementById('countdown');
+
+countdownTimer = setInterval(function() {
+seconds--;
+if (seconds >= 0) {
+countdownEl.textContent = seconds + ' second' + (seconds !== 1 ? 's' : '') + ' remaining';
+} else {
+countdownEl.textContent = 'Time expired!';
+clearInterval(countdownTimer);
+countdownTimer = null;
+}
+}, 1000);
+});
 </script>
 
 </body>
